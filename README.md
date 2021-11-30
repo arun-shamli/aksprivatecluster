@@ -78,8 +78,8 @@ az vm create \
   --size Standard_D2_v2 \
   --ssh-key-value $SSH_PUBLIC_KEY
 
-#Install Docker on the VM
-ssh azureuser@publicIpAddress
+#Install Docker on the VM. get the public IP from the VM created in the above step
+ssh -i .ssh/arun.shamli.id_rsa ak8017@40.121.157.33
 sudo apt-get update
 sudo apt install docker.io -y
 sudo docker run -it hello-world
