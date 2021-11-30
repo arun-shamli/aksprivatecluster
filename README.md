@@ -194,7 +194,7 @@ Address: 10.0.0.6
 #Registry operations
 sudo az acr login --name $MYACR
 echo FROM hello-world > Dockerfile
-az acr build --image sample/hello-world:v1 \
+sudo az acr build --image sample/hello-world:v1 \
   --registry $MYACR \
   --file Dockerfile .
   
