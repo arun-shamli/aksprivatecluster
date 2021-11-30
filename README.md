@@ -28,7 +28,8 @@ export APP_PREFIX=akeastus
 # Please provide your region
 export LOCATION=eastus
 export REGISTRY_LOCATION=eastus
-
+export SSH_PUBLIC_KEY=/home/ak8017/.ssh/arun.shamli.id_rsa.pub
+export USERID=ak8017
 export VNET_PREFIX="192.168."
 
 export AKS_PE_DEMO_RG=$APP_PREFIX"-aksdemo-rg"
@@ -44,7 +45,8 @@ export AKS_PE_SUBNET_CIDR="10.0.1.0/24"
 # set this to the name of your Azure Container Registry.  It must be globally unique
 export MYACR=$APP_PREFIX"myContainerRegistry"
 export VM_NAME=myDockerVM
-
+export USERID=ak8017
+export SSH_PUBLIC_KEY=/home/ak8017/.ssh/arun.shamli.id_rsa.pub
 
 az login
 az account set --subscription $APP_SUBSCRIPTION_ID
@@ -72,8 +74,8 @@ az vm create \
   --resource-group $ADO_PE_DEMO_RG \
   --name $VM_NAME \
   --image UbuntuLTS \
-  --admin-username azureuser \
-  --generate-ssh-keys
+  --admin-username $USERID \
+  --ssh-key-value $SSH_PUBLIC_KEY
 
 #Install Docker on the VM
 ssh azureuser@publicIpAddress
