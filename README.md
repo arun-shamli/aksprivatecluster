@@ -75,6 +75,7 @@ az vm create \
   --name $VM_NAME \
   --image UbuntuLTS \
   --admin-username $USERID \
+  --size Standard_D2_v2 \
   --ssh-key-value $SSH_PUBLIC_KEY
 
 #Install Docker on the VM
