@@ -200,7 +200,7 @@ az acr run --registry $MYACR \
 
 #Create a service principal and assign permissions 
 
-SERVICE_PRINCIPAL_NAME=prreddy-acr-service-principal
+SERVICE_PRINCIPAL_NAME=arun-acr-service-principal
 
 # Obtain the full registry ID for subsequent command args
 ACR_REGISTRY_ID=$(az acr show --name $MYACR --query id --output tsv)
@@ -211,8 +211,8 @@ ACR_REGISTRY_ID=$(az acr show --name $MYACR --query id --output tsv)
 # acrpull:     pull only
 # acrpush:     push and pull
 # owner:       push, pull, and assign roles
-SP_PASSWD=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --query password --output tsv)
-SP_APP_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --output tsv)
+SP_PASSWD=$(az ad sp create-for-rbac --name $SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpull --query password --output tsv)
+SP_APP_ID=$(az ad sp show --id $SERVICE_PRINCIPAL_NAME --query appId --output tsv)
 
 # Output the service principal's credentials; use these in your services and
 # applications to authenticate to the container registry.
@@ -229,7 +229,8 @@ VNET_ID=$(az network vnet show --resource-group $AKS_PE_DEMO_RG --name $DEMO_VNE
 SUBNET_ID=$(az network vnet subnet show --resource-group $AKS_PE_DEMO_RG --vnet-name $DEMO_VNET --name $DEMO_VNET_APP_SUBNET --query id -o tsv)
 
 #get kubernetes version 
-version=$(az aks get-versions -l $LOCATION --query 'orchestrators[-1].orchestratorVersion' -o tsv)
+	  
+version=$(az aks get-versions --location $LOCATION  --query 'orchestrators[?!isPreview] | [-1].orchestratorVersion' --output tsv)
 # Install the aks-preview extension
 az extension add --name aks-preview
 
